@@ -11,8 +11,7 @@ export default function Index() {
         console.log(id_token);
         axios.post('user/oauth/', { token: id_token })
             .then(res => {
-                console.log(res.data)
-                localStorage.setItem("News-token", res.data);
+                localStorage.setItem("News-token", res.data.token);
             }
             ).catch(err => console.log(err));
     };
