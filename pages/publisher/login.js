@@ -1,7 +1,7 @@
 import { GoogleLogin } from "react-google-login";
 import styles from '../../styles/provider.module.css'
 import { useRouter } from "next/dist/client/router";
-import axios from "../axios/axios";
+import axios from 'lib/_axios';
 
 
 export default function Index() {
@@ -16,9 +16,9 @@ export default function Index() {
             ).catch(err => console.log(err));
     };
 
-    return (
 
-        <div className={styles.container}>
+    return (
+        < div className={styles.container} >
             <div className={styles.title__container}>
                 <h1 className={styles.title}>   News сайтын нэвтрэх хэсэг </h1>
             </div>
@@ -27,6 +27,6 @@ export default function Index() {
                 onSuccess={onSuccess}
                 onFailure={(err) => { console.log(err); }}
             />
-        </div>
+        </ div>
     )
 }

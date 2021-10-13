@@ -1,68 +1,55 @@
 import {
-  Container,
   Row,
   Col,
 } from "react-bootstrap";
-
-import MyNav from "components/nav-e";
+import Layout from 'components/layout';
 import Intro from "components/intro-e";
 import ListItem from "components/list-item-e";
 import GridItem from "components/grid-item-e";
+import { getAllNews } from "lib/_api";
 
-export default function Home() {
+export default function Home({ news }) {
   return (
-    <Container>
-      <MyNav />
-      <div className="news-detail-page">
-        <Row>
-          <Col md="12">
-            <Intro />
+    <Layout>
+      <Row>
+        <Col md="12">
+          <Intro />
+        </Col>
+      </Row>
+
+      <hr />
+      <Row className="mb-5">
+        <Col md="10">
+          <ListItem />
+        </Col>
+      </Row>
+      <pre>{JSON.stringify(news.data, null, 2)}</pre>
+      <Row classname="mb-1">
+        {news.data.map(medee => (
+          <Col md="4">
+            <GridItem news={medee} />
           </Col>
-        </Row>
+        ))}
 
-        <hr />
 
-        <div className={`page-wrapper`}>
-          <Row className="mb-5">
-            <Col md="10">
-              <ListItem />
-            </Col>
 
-            <Col md="4">
-              <GridItem />
-            </Col>
+      </Row>
+    </Layout>
 
-            <Col md="4">
-              <GridItem />
-            </Col>
 
-            <Col md="4">
-              <GridItem />
-            </Col>
 
-            <Col md="4">
-              <GridItem />
-            </Col>
 
-            <Col md="4">
-              <GridItem />
-            </Col>
 
-            <Col md="4">
-              <GridItem />
-            </Col>
-          </Row>
-        </div>
-      </div>
-      <footer className="page-footer">
-        <div>
-          <a href="#">нүүр</a>
-          {" | "}
-          <a href="#">Мэдээ </a>
-          {" | "}
-          <a href="#">Холбогдох</a>
-        </div>
-      </footer>
-    </Container>
   );
+}
+
+export const getStaticProps = async () => {
+  const news = await getAllNews();
+
+  return {
+    props: {
+      news
+    }
+  }
+
 }
