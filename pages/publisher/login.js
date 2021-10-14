@@ -23,7 +23,7 @@ export default function Index() {
                 <h1 className={styles.title}>   News сайтын нэвтрэх хэсэг </h1>
             </div>
             <GoogleLogin
-                clientId="788478188804-2p34e0q7upag13prl82ou08uuh7alv5p.apps.googleusercontent.com"
+                clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 onSuccess={onSuccess}
                 onFailure={(err) => { console.log(err); }}
             />
