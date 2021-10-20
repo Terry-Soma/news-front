@@ -1,0 +1,9 @@
+Зурган массив үүсгэх 
+
+лист ашиглах 
+
+display: flex;
+align-items: center;
+min-width: 0 !important;
+min-width: 0;
+max-width: 24; үнэндээ 32px 

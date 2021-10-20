@@ -1,41 +1,63 @@
-
+import axios from 'lib/_axios';
 import React, { useState } from "react";
 import Layout from 'components/layout';
-
-import { useQuill } from 'react-quilljs';
-import renderHTML from 'react-render-html';
-import 'quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
+import CreatePost from "components/post-form-e";
 const Home = () => {
-  const { quill, quillRef } = useQuill();
-  React.useEffect(() => {
-    if (quill) {
-      quill.clipboard.dangerouslyPasteHTML('<h1>React Hook for Quill!</h1>');
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
+  const [news, setNews] = useState([]);
+
+  const [image, setImage] = useState({});
+
+  const [uploading, setUploading] = useState(false)
+  const postSubmit = async (e) => {
+    e.preventDefault();
+    // console.log("post => ", content);
+    try {
+      const { data } = await axios.post('http://localhost:5001/api/v1/news/', { content });
+      console.log("response ====>>>>", data);
+    } catch (err) {
+      console.log(err);
     }
-  }, [quill]);
-  const [value, setValue] = useState('');
-  //   console.log(quill.root.innerHTML);
+  }
+
+  const handleImage = async (e) => {
+    const file = e.target.files[0];
+    let formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+    try {
+      const { data } = await axios.post('http://localhost:5001/api/v1/news/upload-image', formData);
+      console.log(data);
+      setImage({
+        url: data.url,
+        public_id: data.public_id
+      });
+      setNews(content);
+      setContent(content + `<img src="${data.url}" alt="title" /> &nbsp`);
+      setUploading(false);
+    } catch (err) {
+      console.log(err);
+      setUploading(false);
+    }
+  };
   return (
     <>
       <Layout>
-
-        <div style={{ width: 1000, height: 300 }}>
-          <div ref={quillRef} onChange={console.log()} />
-        </div>
-        {/* <ReactQui={{ll
-                theme="snow"
-                value={content}
-                onChange={console.log(e.target.value)}
-                className="form-control"
-                placeholder="Write something..."
-            /> */}
-        {/* <ReactQuill theme="snow" value={value} onChange={setValue} /> */}
+        <CreatePost
+          content={content}
+          setContent={setContent}
+          postSubmit={postSubmit}
+          handleImage={handleImage}
+          image={image}
+          uploading={uploading}
+          title={title}
+          setTitle={setTitle}
+        />
       </Layout >
-      <button onClick={() => console.log(quill.root.innerHTML)}> TOo</button>
-
-      {/* <button onClick={setValue(quill.root.innerHTML)}></button> */}
-      <div>{renderHTML(quill.root.innerHTML)}</div>
     </>
-
   )
-}
+
+};
 export default Home;
