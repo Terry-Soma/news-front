@@ -29,7 +29,7 @@ const Cat = ({ news }) => {
                 {/* <Col md="12"> */}
 
                 {/* {preview && <PreviewAlert />} */}
-                <pre>{JSON.stringify(news, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(news, null, 2)}</pre> */}
                 <div className="blog-detail-header">
                     <p className="lead mb-0">
                         <img

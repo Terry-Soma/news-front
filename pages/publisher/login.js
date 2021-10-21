@@ -8,15 +8,13 @@ export default function Index() {
     const router = useRouter();
     const onSuccess = (googleUser) => {
         const id_token = googleUser.getAuthResponse().id_token;
-        console.log(id_token);
-        axios.post('user/oauth/', { token: id_token })
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}user/oauth/`, { token: id_token })
             .then(res => {
                 localStorage.setItem("News-token", res.data.token);
+                router.push('/publisher/createPost');
             }
             ).catch(err => console.log(err));
     };
-
-
     return (
         < div className={styles.container} >
             <div className={styles.title__container}>
@@ -29,4 +27,4 @@ export default function Index() {
             />
         </ div>
     )
-}
+};
