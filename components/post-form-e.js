@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import { Avatar } from 'antd';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons'
 function CreatePost({ content, setContent, postSubmit, handleImage, image, uploading, title, setTitle }) {
+
     return (
         <>
             <Card className="text-black">
@@ -21,14 +22,14 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                         <ReactQuill
                             theme="snow"
                             value={content}
-                            onChange={e => setContent(e)}
+                            onChange={e => { setContent(e); console.log(content) }}
                             className="form-control"
                             placeholder="Мэдээ бичнэ үү ...." />
                         <label className="warning-text"
                             for="exampleFormControlInput1">Нийтлэх товчийг дарахаас өмнө сайн бодоорой</label>
                         <div className="card-footer d-flex justify-content-between text-muted">
                             <button
-                                disabled={!content}
+                                disabled={!content || !title}
                                 onClick={postSubmit}
                                 className="btn btn-primary btn-sm mt-1"
                             >
@@ -50,6 +51,7 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                             {/* Зураг сонгох */}
                         </div>
                     </form>
+
                 </div>
             </Card>
         </>

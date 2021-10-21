@@ -5,13 +5,13 @@ const GridItem = ({ news }) => {
         <Card className={`fj-card`}>
             <div className="card-body-wrapper">
                 <Card.Header className="d-flex flex-row">
-                    <img
+                    {/* <img
                         src={news.journalist.imageUrl}
                         className="rounded-circle mr-3"
                         height="50px"
                         width="50px"
                         alt="avatar"
-                    />
+                    /> */}
                     <div>
                         <Card.Title className="font-weight-bold mb-1">
                             {news.title}
@@ -21,15 +21,16 @@ const GridItem = ({ news }) => {
                 </Card.Header>
                 <div className="view overlay">
                     <Card.Img
-                        src={`https://mgl.gogo.mn/newsn/thumbnail/200${news.smallPicUrl}`}
+                        src={news.image.url}
                         alt="Card image cap"
+
                     />
                 </div>
                 <Card.Body>
                     <Card.Title className="card-small-title">
                         {news.content}
                     </Card.Title>
-                    <Card.Text>{news.category.name}</Card.Text>
+                    {/* <Card.Text>{news.category.name}</Card.Text> */}
                 </Card.Body>
             </div>
         </Card>
