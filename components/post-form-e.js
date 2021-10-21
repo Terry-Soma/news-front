@@ -13,12 +13,12 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                     <form className="form-group">
                         <div className="form-group mb-5">
                             <label className="dark-text"
-                                for="exampleFormControlInput1">Гарчиг</label>
+                                htmlFor="exampleFormControlInput1">Гарчиг</label>
                             <textarea className="form-control" onChange={e => setTitle(e.target.value)}
                                 value={title} id="exampleFormControlInput1" placeholder="Гарчигаа оруулна уу" />
                         </div>
                         <label className="dark-text"
-                            for="exampleFormControlInput1">Агуулга</label>
+                            htmlFor="exampleFormControlInput1">Агуулга</label>
                         <ReactQuill
                             theme="snow"
                             value={content}
@@ -26,7 +26,7 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                             className="form-control"
                             placeholder="Мэдээ бичнэ үү ...." />
                         <label className="warning-text"
-                            for="exampleFormControlInput1">Нийтлэх товчийг дарахаас өмнө сайн бодоорой</label>
+                            htmlFor="exampleFormControlInput1">Нийтлэх товчийг дарахаас өмнө сайн бодоорой</label>
                         <div className="card-footer d-flex justify-content-between text-muted">
                             <button
                                 disabled={!content || !title}
@@ -36,7 +36,7 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                                 Нийтлэх
                             </button>
                             <label className="dark-text"
-                                for="exampleFormControlInput1">Зургаа оруулахдаа сайн бодоорой</label>
+                                htmlFor="exampleFormControlInput1">Зургаа оруулахдаа сайн бодоорой</label>
                             <label>
                                 {image && image.url ? (
                                     <Avatar size={30} src={image.url} className="mt-1" />

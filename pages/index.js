@@ -24,10 +24,10 @@ export default function Home({ news }) {
         </Col>
       </Row>
       <pre>{JSON.stringify(news.data, null, 2)}</pre>
-      <Row classname="mb-1">
+      <Row className="mb-5">
         {news.data.map(medee => (
-          <Col md="4">
-            <GridItem news={medee} />
+          <Col key={medee.id} md="4">
+            <GridItem news={medee} key={medee.id} />
           </Col>
         ))}
 
@@ -45,7 +45,7 @@ export default function Home({ news }) {
 
 export const getStaticProps = async () => {
   const news = await getAllNews();
-
+  console.log("index.html build   =======>>>>>");
   return {
     props: {
       news
