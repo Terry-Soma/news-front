@@ -1,9 +1,10 @@
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import { useContext } from "react";
 import { Card } from 'react-bootstrap';
 import "react-quill/dist/quill.snow.css";
 import { Avatar } from 'antd';
-import { LoadingOutlined, CameraOutlined } from '@ant-design/icons'
+import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 function CreatePost({ content, setContent, postSubmit, handleImage, image, uploading, title, setTitle }) {
 
     return (
@@ -17,12 +18,13 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                             <textarea className="form-control" onChange={e => setTitle(e.target.value)}
                                 value={title} id="exampleFormControlInput1" placeholder="Гарчигаа оруулна уу" />
                         </div>
+                        {/* {JSON.stringify(state)} */}
                         <label className="dark-text"
                             htmlFor="exampleFormControlInput1">Агуулга</label>
                         <ReactQuill
                             theme="snow"
                             value={content}
-                            onChange={e => { setContent(e); console.log(content) }}
+                            onChange={e => setContent(e)}
                             className="form-control"
                             placeholder="Мэдээ бичнэ үү ...." />
                         <label className="warning-text"
@@ -51,7 +53,6 @@ function CreatePost({ content, setContent, postSubmit, handleImage, image, uploa
                             {/* Зураг сонгох */}
                         </div>
                     </form>
-
                 </div>
             </Card>
         </>

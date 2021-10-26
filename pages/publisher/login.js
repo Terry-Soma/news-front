@@ -1,22 +1,27 @@
 import { GoogleLogin } from "react-google-login";
 import styles from '../../styles/provider.module.css'
-import { useRouter } from "next/dist/client/router";
-import axios from 'lib/_axios';
+import { useRouter } from "next/router";
 
+import axios from 'lib/_axios';
+import { useContext } from "react";
+import { UserContext } from "context/_userProvider";
 
 export default function Index() {
     const router = useRouter();
+    const [state, setState] = useContext(UserContext);
+    /*  */if (state && state !== null) router.push('/publisher/createPost');
+
     const onSuccess = (googleUser) => {
         const id_token = googleUser.getAuthResponse().id_token;
         axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}user/oauth/`, { token: id_token })
             .then(res => {
+                setState(res.data.token);
                 localStorage.setItem("News-token", res.data.token);
                 router.push('/publisher/createPost');
-            }
-            ).catch(err => console.log(err));
+            }).catch(error => console.log(error));
     };
     return (
-        < div className={styles.container} >
+        <div div className={styles.container} >
             <div className={styles.title__container}>
                 <h1 className={styles.title}>   News сайтын нэвтрэх хэсэг </h1>
             </div>
@@ -25,6 +30,6 @@ export default function Index() {
                 onSuccess={onSuccess}
                 onFailure={(err) => { console.log(err); }}
             />
-        </ div>
+        </div>
     )
 };

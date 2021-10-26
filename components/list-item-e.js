@@ -4,13 +4,13 @@ const ListItem = () => (
     <Card className={`fj-card fj-card-list`}>
         <div className="card-body-wrapper">
             <Card.Header className="d-flex flex-row">
-                {/* <img
-                    src={"https://source.unsplash.com/user/erondu/150x150"}
-                    // className="rounded-circle mr-3"
-                    height="150px"
-                    width="150px"
+                <img
+                    src={"https://source.unsplash.com/user/erondu/300x300"}
+                    className="mr-3"
+                    height="300px"
+                    width="300px"
                     alt="avatar"
-                /> */}
+                />
                 <div>
                     <Card.Title className="font-weight-bold mb-1">
                         Онцлох мэдээ

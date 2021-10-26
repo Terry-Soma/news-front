@@ -1,11 +1,10 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Layout from 'components/layout';
 import { getAllNews, getNewsByUrl } from "lib/_api";
-import moment from "moment";
-
+import News from 'components/news-e.js';
+import AsideNews from 'components/aside-news-e';
 const Cat = ({ news }) => {
-    moment.locale("mn");
 
     const router = useRouter();
     if (router.isFallback)
@@ -23,46 +22,19 @@ const Cat = ({ news }) => {
     //     );
 
     return (
-        <Layout Layout >
-            {router.query.uniqueUrl}
+        <Layout>
             <Row>
-                {/* <Col md="12"> */}
+                <Col md="8">
+                    {router.query.uniqueUrl}
+                    {/* {preview && <PreviewAlert />} */}
+                    <pre>{/*JSON.stringify(post, null, 2)*/}</pre>
+                    <News news={news} />
+                    <br />
 
-                {/* {preview && <PreviewAlert />} */}
-                {/* <pre>{JSON.stringify(news, null, 2)}</pre> */}
-                <div className="blog-detail-header">
-                    <p className="lead mb-0">
-                        <img
-                            src={news.image.url}
-                            className="rounded-circle mr-10"
-                            height="50px"
-                            width="50px"
-                        />
-                        {news.title}, {moment(news.Ognoo).format("lll")}
-                    </p>
-
-                    <h1 className="font-weight-bold blog-detail-header-title mb-0">
-                        {news.title}
-                    </h1>
-
-                    <h2 className="blog-detail-header-subtitle mb-3">{news.title + "=====>>>>>>>" + Math.random()}</h2>
-
-                    <img
-                        className="img-fluid rounded"
-                        src={news.image.url}
-                    />
-                    {/* <div className="code-filename" style={{ textAlign: "center" }}>
-                            {post.cover_image.alt}
-    </div> */}
-                </div>
-                {/* <PostHeader post={post} /> */}
-                <br />
-                {/* <BlockContent
-                        blocks={post.content}
-                        serializers={serializers}
-                        imageOptions={{ w: 320, h: 240, fit: "max" }}
-                    /> */}
-                {/* </Col> */}
+                </Col>
+                <Col md="4">
+                    <AsideNews />
+                </Col>
             </Row>
         </Layout >
     );
@@ -70,14 +42,13 @@ const Cat = ({ news }) => {
 
 export default Cat;
 
-
+/* props  */
 export const getStaticProps = async ({ params }) => {
     console.log(params.uniqueUrl);
     const { data } = await getNewsByUrl(params.uniqueUrl);
-
     return {
         props: {
-            news: data
+            news: data,
         },
     };
 };
@@ -85,16 +56,15 @@ export const getStaticProps = async ({ params }) => {
 export async function getStaticPaths() {
     const { data } = await getAllNews();
     console.log(data);
-
     const url = data.map((post) => ({
         params: {
-            uniqueUrl: post.uniqueUrl
+            uniqueUrl: post.uniqueUrl,
         }
     }));
 
     return {
         paths: url,
-        fallback: false,
+        fallback: true,
     }
 };
 
