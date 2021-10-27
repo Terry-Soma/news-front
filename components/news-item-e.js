@@ -1,6 +1,7 @@
 import Link from "next/link";
 import moment from "moment";
 import renderHTML from "react-render-html";
+import { Card } from "react-bootstrap";
 const NewsItem = ({ news }) => {
     moment.locale("mn")
     return (

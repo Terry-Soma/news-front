@@ -23,12 +23,12 @@ const UserProvider = ({ children }) => {
         },
         function (error) {
             // Do something with request error
-            let res = error.response;
-            if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
-                setState(null);
-                window.localStorage.removeItem("News-token");
-                router.push("/login");
-            }
+            // let res = error.response;
+            // if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
+            //     setState(null);
+            //     window.localStorage.removeItem("News-token");
+            //     router.push("/login");
+            // }
         }
     );
 

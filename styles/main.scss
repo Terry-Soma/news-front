@@ -437,7 +437,7 @@ body {
     font-weight: 400;
     color: hsl(255, 11%, 16%);
   }
-  & .flex-item {
+  & .flex-item1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -517,6 +517,7 @@ body {
   margin-bottom: 1rem;
   &-image-con {
     min-width: 100px;
+    width: 100px;
     height: 100px;
     & .image {
       width: 100%;

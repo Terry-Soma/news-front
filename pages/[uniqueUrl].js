@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Layout from 'components/layout';
 import { getAllNews, getNewsByUrl } from "lib/_api";
 import News from 'components/news-e.js';
-import AsideNews from 'components/aside-news-e';
+import AsideNews from 'components/aside-news-d';
 const Cat = ({ news }) => {
 
     const router = useRouter();
@@ -24,7 +24,7 @@ const Cat = ({ news }) => {
     return (
         <Layout>
             <Row>
-                <Col md="8">
+                <Col md="12">
                     {router.query.uniqueUrl}
                     {/* {preview && <PreviewAlert />} */}
                     <pre>{/*JSON.stringify(post, null, 2)*/}</pre>
@@ -32,9 +32,9 @@ const Cat = ({ news }) => {
                     <br />
 
                 </Col>
-                <Col md="4">
+                {/* <Col md="4">
                     <AsideNews />
-                </Col>
+                </Col> */}
             </Row>
         </Layout >
     );
@@ -55,7 +55,7 @@ export const getStaticProps = async ({ params }) => {
 /* paths */
 export async function getStaticPaths() {
     const { data } = await getAllNews();
-    console.log(data);
+    // console.log(data);
     const url = data.map((post) => ({
         params: {
             uniqueUrl: post.uniqueUrl,

@@ -10,6 +10,7 @@ import NewsItem from "components/news-item-e";
 import AsideNews from "components/aside-news-e";
 
 export default function Home({ news }) {
+  
   return (
     <Layout>
       <Row>
@@ -32,9 +33,7 @@ export default function Home({ news }) {
       <Row >
         <Col key={news.data.id} md="8">
           {news.data.map(medee => (
-
             <NewsItem news={medee} key={medee.id} />
-
           ))}
         </Col>
         <Col md="4" >

@@ -28,7 +28,7 @@ export default function Index() {
             <GoogleLogin
                 clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 onSuccess={onSuccess}
-                onFailure={(err) => { console.log(err); }}
+                onFailure={error => console.log(error)}
             />
         </div>
     )

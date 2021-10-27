@@ -1,10 +1,13 @@
 import axios from 'axios';
 import React, { useState, useContext } from "react";
 import Layout from 'components/layout-p';
+// import { useRouter } from "next/router";
+
 import "react-quill/dist/quill.snow.css";
 import CreatePost from "components/post-form-e";
 import { UserContext } from 'context/_userProvider';
 const Home = () => {
+  // const router = useRouter();
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [image, setImage] = useState({});
@@ -30,12 +33,11 @@ const Home = () => {
     formData.append("image", file);
     setUploading(true);
     try {
-      // const { data } = await axios.post('http://localhost:5001/api/v1/news/upload-image', formData);
-      // console.log(data);
-      const data = {
-        url: "https://res.cloudinary.com/example-ddd/image/upload/v1634708297/potjm7pfnt0h9figmks9.jpg",
-        public_id: "potjm7pfnt0h9figmks9"
-      }
+      const { data } = await axios.post('http://localhost:5001/api/v1/news/upload-image', formData);
+      // const data = {
+      //   url: "https://res.cloudinary.com/example-ddd/image/upload/v1634708297/potjm7pfnt0h9figmks9.jpg",
+      //   public_id: "potjm7pfnt0h9figmks9"
+      // }
       // debugger
       setImage({ url: data.url, public_id: data.public_id });
       setContent(content + `<img src="${data.url}" alt="title" />`);
@@ -45,6 +47,8 @@ const Home = () => {
       setUploading(false);
     }
   };
+
+  // if (!state && state == null) router.push('/publisher/login');
 
   return (
     <Layout>

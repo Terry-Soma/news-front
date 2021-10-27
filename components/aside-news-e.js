@@ -20,7 +20,6 @@ const AsideNews = ({ news }) => {
                         </div>
                         <CommentOutlined className="mx-2" />
                         <ShareAltOutlined className="mx-2" />
-
                     </div>
                 </div>
             </div>
@@ -52,4 +51,8 @@ export default AsideNews;
 //         }
 //     }
 
+// }
+
+// export const getServerSideProps = async () => {
+//     console.log("jakasdfadfasfd");
 // }

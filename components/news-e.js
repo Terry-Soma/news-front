@@ -7,7 +7,7 @@ const News = ({ news }) => {
         <>
             <div id="news-detail">
                 <h2 className="title">{news.title}</h2>
-                <div className="flex-item">
+                <div className="flex-item1">
                     <div className="sub-flex">
                         <img
                             src={news.journalist.imageUrl}
