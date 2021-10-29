@@ -10,7 +10,7 @@ const NewsItem = ({ news }) => {
             <div className="grid">
                 <div className="grid-img">
                     <Link href={`/${news.uniqueUrl}`} >
-                        <a><img src={news.image.url} /> </a>
+                        <a><img src={news.image.url} /></a>
                     </Link>
                 </div>
 
@@ -18,9 +18,10 @@ const NewsItem = ({ news }) => {
                     <div className="grid-content">
                         <div className="flex-content" >
                             {/* category id -gaar sort */}
-                            {/* <Link href={`/${news.category.Id}`} > */}
-                            <a href="#" >Эрүүл мэнд</a>
-                            <h2>{moment(news.Ognoo).format("lll")}</h2>
+                            <Link href={`/${news.category ? news.category.id : "#"}`} >
+                                <a>{news.category ? news.category.name : "Эрүүл мэнд"}</a>
+                            </Link>
+                            <h2>{moment(news.Ognoo).format("ll")}</h2>
                         </div>
                         <article>
                             <a><h2 className="">{news.title}</h2>

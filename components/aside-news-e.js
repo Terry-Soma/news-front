@@ -1,5 +1,4 @@
 
-import { getAllNews } from 'lib/_api';
 import { FieldTimeOutlined, CommentOutlined, ShareAltOutlined } from '@ant-design/icons';
 
 import moment from 'moment';
@@ -11,7 +10,7 @@ const AsideNews = ({ news }) => {
                     <a> <img src={news.image.url} className="image" /> </a>
                 </div>
                 <div className="flex-aside-content">
-                    <a><p>{news.title}</p></a>
+                    <a><p className="small">{news.title}</p></a>
                     <div className="flex">
                         <div className="flex jc">
 
@@ -28,31 +27,3 @@ const AsideNews = ({ news }) => {
 };
 
 export default AsideNews;
-
-// export const getStaticProps = async () => {
-//     const { data } = await getAllNews();
-//     console.log("-=============> ", "data");
-
-//     return {
-//         props: {
-//             news: data
-//         }
-//     }
-// }
-/* why it is not working ???!!!! */
-
-// export const getServerSideProps = async () => {
-//     console.log("jak");
-//     const { data } = await getAllNews();
-//     console.log("dataaaa ------- ===================> >>>>>>>>>>>>>>>>>>> ", data);
-//     return {
-//         props: {
-//             news: data
-//         }
-//     }
-
-// }
-
-// export const getServerSideProps = async () => {
-//     console.log("jakasdfadfasfd");
-// }
