@@ -2,15 +2,17 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import Layout from 'components/layout-p';
 import { useRouter } from "next/router";
-import { Row, Col, Card, Spinner } from 'react-bootstrap';
+import { Row, Col, Card, Spinner, ToastContainer, Toast } from 'react-bootstrap';
 import "react-quill/dist/quill.snow.css";
 import CreatePost from "components/post-form-e";
 import { UserContext } from 'context/_userProvider';
 import UserNews from 'components/usernews-e';
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [error, setError] = useState({
+
+  });
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [categories, setCategory] = useState([]);
@@ -30,8 +32,9 @@ const Home = () => {
         },
       });
       console.log("response ====>>>>", data);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      // console.log(error.message);
+      // setError(err.response)
     }
   }
   /* done */
@@ -41,7 +44,6 @@ const Home = () => {
   /* done */
   useEffect(() => {/* information of category */
     try {
-
       axios.get("http://localhost:5001/api/v1/categories/publisher").then(({ data }) => setCategory(data.data)).catch(err => console.log(err));
       setLoading(true);
       axios.post("http://localhost:5001/api/v1/user/news", {}, {
@@ -77,16 +79,30 @@ const Home = () => {
       setUploading(false);
     }
   };
-
-  const handleEdit = async () => {
-    console.log("jak")
+  /* done */
+  const handleEdit = async (id) => {
+    const news = userNews.filter(el => el.id === id);
+    setTitle(news[0].title);
+    setContent(`<img src=${news[0].image.url} alt="h"/>` + news[0].content);
+    setImage({ url: news[0].image.url, public_id: news[0].image.public_id });
   };
-  const handleDelete = async () => {
-    console.log("del")
+  /* toast done */
+  const handleDelete = async (id) => {
+    const { data } = await axios.delete(`http://localhost:5001/api/v1/news/${id}`, {
+      headers: {
+        Authorization: `Bearer ${state}`
+      },
+    });
+    if (data.success) {
+      const news = userNews.filter((el) => { el.id !== data.data.id });
+      setError({ show: true, message: "Амжилттай устгагдлаа" });
+      setUserNews(news);
+    }
   };
 
   return (
     <Layout >
+
       <Row>
         <Col md="8">
           <CreatePost
@@ -103,12 +119,21 @@ const Home = () => {
           />
         </Col>
         <Col md="4" >
+          {/* <Toast onClose={() => setError({ show: false })} delay={3000} show={error.show} autohide>
+            <Toast.Header>
+              <strong className="me-auto">News.mn</strong>
+            </Toast.Header>
+            <Toast.Body>{error.message}</Toast.Body>
+          </Toast> */}
           <Card className="text-black con">
             {loading ? <Spinner animation="border" variant="success" /> : null}
             {userNews && userNews.map(news => <UserNews news={news} loading={loading} key={news._id} handleEdit={handleEdit} handleDelete={handleDelete} />)}
           </Card>
         </Col>
+
       </Row>
+
+
     </Layout >
   )
 

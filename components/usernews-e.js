@@ -16,10 +16,10 @@ const UserNews = ({ news, loading, handleEdit, handleDelete }) => {
                         <a><p className="small">{news.title}</p></a>
                         <div className="flex">
                             <p className="time">{moment(news.Ognoo).fromNow()}</p>
-                            <Button variant="info" onClick={handleEdit}>
+                            <Button variant="info" onClick={() => handleEdit(news.id)}>
                                 <EditOutlined className="mx-2 py-1" />
                             </Button>
-                            <Button variant="danger" onClick={handleDelete}>
+                            <Button variant="danger" onClick={() => handleDelete(news.id)}>
                                 <DeleteOutlined className="mx-2 py-1" />
                             </Button>
                         </div>
