@@ -45,6 +45,14 @@ const Home = () => {
   useEffect(() => {/* information of category */
     try {
       axios.get("http://localhost:5001/api/v1/categories/publisher").then(({ data }) => setCategory(data.data)).catch(err => console.log(err));
+    } catch (error) {
+      console.log("error", error);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {/* information of userNews */
+    try {
       setLoading(true);
       axios.post("http://localhost:5001/api/v1/user/news", {}, {
         headers: {
@@ -52,12 +60,12 @@ const Home = () => {
         }
       }).then(({ data }) => setUserNews(data.data)).catch(error => console.log(error.message));
       setLoading(false);
-    } catch (error) {
-      console.log("error", error);
-    }
-    setLoading(false);
-  }, [state]);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
 
+    }
+  }, [state]);
   /* done */
   const handleImage = async (e) => {
     const file = e.target.files[0];
