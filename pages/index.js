@@ -1,9 +1,5 @@
-import {
-  Row,
-  Col,
-  Spinner
-} from "react-bootstrap";
-import Layout from 'components/layout';
+import { Row, Col, Spinner } from "react-bootstrap";
+import Layout from "components/layout";
 import Intro from "components/intro-e";
 import ListItem from "components/list-item-e";
 import { getAllNews } from "lib/_api";
@@ -13,12 +9,14 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Home({ news }) {
-  const [asideNews, setAsideNews] = useState(news.data);/* initial data */
+  const [asideNews, setAsideNews] = useState(news.data); /* initial data */
   const [loading, setLoading] = useState(false);
   const Jak = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('http://localhost:5001/api/v1/news/s');/* superior */
+      const { data } = await axios.get(
+        "http://localhost:5001/api/v1/news/s"
+      ); /* superior */
       setAsideNews(data.data);
       setLoading(false);
     } catch (err) {
@@ -30,7 +28,9 @@ export default function Home({ news }) {
   const Rival = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('http://localhost:5001/api/v1/news/t');/* trend */
+      const { data } = await axios.get(
+        "http://localhost:5001/api/v1/news/t"
+      ); /* trend */
       /* 1980 */
       setAsideNews(data.data);
       setLoading(false);
@@ -56,11 +56,11 @@ export default function Home({ news }) {
           <ListItem />
         </Col>
       </Row>
-      <pre>{JSON.stringify(news.data, null, 4)}</pre>
+      {/* <pre>{JSON.stringify(news.data, null, 4)}</pre> */}
 
-      <Row >
+      <Row>
         <Col key={news.data.id} md="8">
-          {news.data.map(medee => (
+          {news.data.map((medee) => (
             <NewsItem news={medee} key={medee.id} />
           ))}
         </Col>
@@ -69,29 +69,42 @@ export default function Home({ news }) {
             <div className="flex-item">
               <ul>
                 <li>
-                  <button type="button" onClick={Jak} className="btn btn-primary" >Jak</button>
+                  <button
+                    type="button"
+                    onClick={Jak}
+                    className="btn btn-primary"
+                  >
+                    Шинэ
+                  </button>
                 </li>
                 <li>
-                  <button type="button" onClick={Rival} className="btn btn-light">Rival</button>
+                  <button
+                    type="button"
+                    onClick={Rival}
+                    className="btn btn-light"
+                  >
+                    Онцлох мэдээ
+                  </button>
                 </li>
               </ul>
             </div>
             {loading ? <Spinner animation="border" className="absolute" /> : ""}
-            {asideNews.map(medee => <AsideNews news={medee} />)}
+            {asideNews.map((medee) => (
+              <AsideNews news={medee} />
+            ))}
           </div>
         </Col>
       </Row>
-    </Layout >
+    </Layout>
   );
 }
-
 
 export const getStaticProps = async () => {
   const news = await getAllNews();
   console.log("index.html build   =======>>>>>");
   return {
     props: {
-      news
-    }
-  }
-}
+      news,
+    },
+  };
+};

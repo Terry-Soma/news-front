@@ -2,14 +2,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import Layout from "components/layout-p";
 import { useRouter } from "next/router";
-import {
-  Row,
-  Col,
-  Card,
-  Spinner,
-  ToastContainer,
-  Toast,
-} from "react-bootstrap";
+import { Row, Col, Card, Spinner, Toast } from "react-bootstrap";
 import "react-quill/dist/quill.snow.css";
 import CreatePost from "components/post-form-e";
 import { UserContext } from "context/_userProvider";
@@ -51,41 +44,46 @@ const Home = () => {
     setCat(e.target.value);
   };
   /* done */
+  /* information of category */
   useEffect(() => {
-    /* information of category */
     try {
       axios
         .get("http://localhost:5001/api/v1/categories/publisher")
         .then(({ data }) => setCategory(data.data))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err.data));
     } catch (error) {
       console.log("error", error);
     }
     setLoading(false);
   }, []);
 
+  /* information of userNews */
   useEffect(() => {
-    /* information of userNews */
-    try {
-      setLoading(true);
-      axios
-        .post(
-          "http://localhost:5001/api/v1/user/news",
-          {},
-          {
-            headers: {
-              Authorization: `Bearar ${state}`,
-            },
-          }
-        )
-        .then(({ data }) => setUserNews(data.data))
-        .catch((error) => console.log(error.message));
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
+    if (state != null) {
+      try {
+        setLoading(true);
+        axios
+          .post(
+            "http://localhost:5001/api/v1/user/news",
+            {},
+            {
+              headers: {
+                Authorization: `Bearar ${state}`,
+              },
+            }
+          )
+          .then(({ data }) => setUserNews(data.data))
+          .catch((error) => console.log(error.message));
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    } else {
+      if (state == null) router.push("/publisher/login");
     }
   }, [state]);
+
   /* done */
   const handleImage = async (e) => {
     const file = e.target.files[0];
@@ -155,12 +153,19 @@ const Home = () => {
           />
         </Col>
         <Col md="4">
-          {/* <Toast onClose={() => setError({ show: false })} delay={3000} show={error.show} autohide>
-            <Toast.Header>
-              <strong className="me-auto">News.mn</strong>
-            </Toast.Header>
-            <Toast.Body>{error.message}</Toast.Body>
-          </Toast> */}
+          {error && error.message ? (
+            <Toast
+              onClose={() => setError({ show: false })}
+              delay={3000}
+              show={error.show}
+              autohide
+            >
+              <Toast.Header>
+                <strong className="me-auto">News.mn</strong>
+              </Toast.Header>
+              <Toast.Body>{error.message}</Toast.Body>
+            </Toast>
+          ) : null}
           <Card className="text-black con">
             {loading ? <Spinner animation="border" variant="success" /> : null}
             {userNews &&
