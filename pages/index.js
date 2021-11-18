@@ -90,7 +90,7 @@ export default function Home({ news }) {
             </div>
             {loading ? <Spinner animation="border" className="absolute" /> : ""}
             {asideNews.map((medee) => (
-              <AsideNews news={medee} />
+              <AsideNews news={medee} key={medee.id} />
             ))}
           </div>
         </Col>

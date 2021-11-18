@@ -118,6 +118,8 @@ const Home = () => {
   };
   /* toast done */
   const handleDelete = async (id) => {
+    const answer = window.confirm("Are you sure?");
+    if (!answer) return;
     const { data } = await axios.delete(
       `http://localhost:5001/api/v1/news/${id}`,
       {
